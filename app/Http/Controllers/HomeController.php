@@ -53,7 +53,7 @@ class HomeController extends Controller
             'phone_number' => $request->phone_number,
             'address' => $request->address,
         ]);
-        //Photo upload code start
+        // //Profile Photo upload code start
         if($request->hasFile('profile_photo')){
             if(auth()->user()->profile_photo != 'default_user_photo.jpg'){
                 unlink(base_path('public/uploads/profile_photo/').auth()->user()->profile_photo);
@@ -70,7 +70,27 @@ class HomeController extends Controller
         }
              return back()->with('change_name','Update Successfully!');
 
-       //Photo upload code end
+        // //Profile Photo upload code end
+
+
+    //     //Cover Photo upload code start
+        if ($request->hasFile('cover_photo')) {
+            if (auth()->user()->cover_photo != 'default_cover_photo.jpg') {
+                unlink(base_path('public/uploads/cover_photo/') . auth()->user()->cover_photo);
+            }
+            //step-1: new profile photo name create(1.jpg)
+            $new_names = auth()->id() . "-" . Str::random(5) . "." . $request->file('cover_photo')->getClientOriginalExtension();
+            //step-2: new profile photo upload
+            $save_links = base_path('public/uploads/cover_photo/') . $new_names;
+            Image::make($request->file('cover_photo'))->resize(1600, 451)->text('Goldfish', 10, 10)->save($save_links);
+            //step-3: new profile photo name update at database
+            User::find(auth()->id())->update([
+                'cover_photo' => $new_names,
+            ]);
+        }
+        return back()->with('change_name', 'Update Successfully!');
+
+    //    //Cover Photo upload code end
 
 
 

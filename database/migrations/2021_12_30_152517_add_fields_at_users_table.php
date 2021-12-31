@@ -17,6 +17,7 @@ class AddFieldsAtUsersTable extends Migration
             $table->integer('phone_number')->length(11)->nullable();
             $table->string('address')->nullable();
             $table->string('profile_photo')->default('default_user_photo.jpg');
+            $table->string('cover_photo')->default('default_cover_photo.jpg');
         });
     }
 

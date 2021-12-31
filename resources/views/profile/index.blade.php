@@ -10,7 +10,9 @@ Profile
                         <div class="profile card card-body px-3 pt-3 pb-0">
                             <div class="profile-head">
                                 <div class="photo-content">
-                                    <div class="cover-photo"></div>
+                                    <div class="cover-photo">
+                                        <img src="{{asset('uploads/cover_photo')}}/{{auth()->user()->cover_photo}}" width="100%"   class="img-fluid " alt="No photo">
+                                    </div>
                                 </div>
                                 <div class="profile-info">
 									<div class="profile-photo">
@@ -106,13 +108,18 @@ Profile
                                                                     </div>
                                                                 </div>
                                                                <div class="row">
-                                                                   <div class="col-12">
+                                                                   <div class="col-6">
                                                                     <div class="form-group">
                                                                          <label>Profile Photo</label>
                                                                           <input type="file"  name="profile_photo" class="form-control">
-                                                                          {{-- @error('phone_number')
-                                                                            <span class="text-danger">{{$message}}</span>
-                                                                          @enderror --}}
+
+                                                                    </div>
+                                                                   </div>
+                                                                   <div class="col-6">
+                                                                    <div class="form-group">
+                                                                         <label>Cover Photo</label>
+                                                                          <input type="file"  name="cover_photo" class="form-control">
+
                                                                     </div>
                                                                    </div>
                                                                </div>
