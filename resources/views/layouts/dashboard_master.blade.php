@@ -12,6 +12,7 @@
     <link href="{{asset('dashboard')}}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="{{asset('dashboard')}}/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="{{asset('dashboard')}}/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -800,6 +801,15 @@
                             <li><a href="{{route('subcategory.index')}}">List SubCategory</a></li>
                         </ul>
                     </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-381-layer-1"></i>
+							<span class="nav-text">Slider</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{route('slider.create')}}">Add Slider</a></li>
+                            <li><a href="{{route('slider.index')}}">List Slider</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
 			</div>
@@ -1181,6 +1191,7 @@
 
 	<!-- Chart piety plugin files -->
     <script src="{{asset('dashboard')}}/vendor/peity/jquery.peity.min.js"></script>
+   @yield('script')
 
 	<!-- Apex Chart -->
 	<script src="{{asset('dashboard')}}/vendor/apexchart/apexchart.js"></script>

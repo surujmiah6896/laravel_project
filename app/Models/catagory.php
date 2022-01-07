@@ -10,6 +10,6 @@ class catagory extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['catagory_name', 'updated_by'];
+    protected $fillable = ['catagory_name', 'catagory_photo', 'updated_by'];
     // protected $fillable = ['updated_by'];
 }

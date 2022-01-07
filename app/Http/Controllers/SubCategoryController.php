@@ -7,6 +7,7 @@ use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class SubCategoryController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        return view('subcategory.index',[
+        return view('dashboard.subcategory.index',[
             'subcategorys' => SubCategory::all()
         ]);
     }
@@ -29,7 +30,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $allcategorys = catagory::all();
-        return view('subcategory.create',compact('allcategorys'));
+        return view('dashboard.subcategory.create',compact('allcategorys'));
     }
 
     /**
@@ -88,9 +89,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(SubCategory $subCategory)
-    {
-        //
+    public function show($id)
+    {   $subCategories = SubCategory::find($id);
+        return view('dashboard.subcategory.show', compact('subCategories'));
     }
 
     /**
@@ -99,9 +100,13 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubCategory $subCategory)
+    public function edit($id)
     {
-        //
+        $SubCategories = SubCategory::find($id);
+    //   $category = catagory::where('id',$SubCategories->category_id)->first();
+        $allcategorys = catagory::all();
+
+        return view('dashboard.subcategory.edit',compact('SubCategories', 'allcategorys'));
     }
 
     /**
@@ -111,9 +116,18 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, $id)
     {
-        //
+
+        SubCategory::find($id)->update([
+            'category_id' => $request->category_id,
+            'subcategory_name'=> $request->subcategory_name,
+            'updated_by' => auth()->user()->id,
+            'updated_at' => Carbon::now(),
+
+        ]);
+
+        return back()->with('update_message', 'Update Successfully!');;
     }
 
     /**
@@ -122,8 +136,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        //
+         SubCategory::find($id)->delete();
+        return back()->with('delete_message', 'Delete Successfully!');
     }
 }

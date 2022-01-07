@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         $total_category = catagory::count();
         $total_user = User::count();
-        return view('home',compact('total_category','total_user'));
+        return view('dashboard.home',compact('total_category','total_user'));
     }
     public function dashboard_master()
     {
@@ -38,7 +38,7 @@ class HomeController extends Controller
     }
     public function profile()
     {
-        return view('profile.index');
+        return view('dashboard.profile.index');
     }
     public function update_profile(Request $request)
     {
@@ -68,7 +68,7 @@ class HomeController extends Controller
                 'profile_photo' => $new_name,
             ]);
         }
-             return back()->with('change_name','Update Successfully!');
+            //  return back()->with('change_name','Update Successfully!');
 
         // //Profile Photo upload code end
 

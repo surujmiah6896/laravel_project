@@ -7,6 +7,8 @@ use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
+use Image;
 
 class CatagoryController extends Controller
 {
@@ -17,8 +19,8 @@ class CatagoryController extends Controller
      */
     public function index()
     {   $deleted_categorys = catagory::onlyTrashed()->get();
-        $catagorys = catagory::all();
-        return view('catagory.index',compact('catagorys', 'deleted_categorys'));
+        $catagories = catagory::all();
+        return view('dashboard.catagory.index',compact('catagories', 'deleted_categorys'));
 
     }
 
@@ -29,7 +31,7 @@ class CatagoryController extends Controller
      */
     public function create()
     {
-        return view('catagory.create');
+        return view('dashboard.catagory.create');
 
     }
 
@@ -46,8 +48,23 @@ class CatagoryController extends Controller
         ],[
             'catagory_name.required' =>'your custom comments'//custom error genaret
         ]);
+        //Photo uploads start
+        if($request-> hasFile('category_photo')){
+            //new Name of Photo
+            $new_name = "category-".Str::random(5).".".$request->file('category_photo')->getClientOriginalExtension();
+            //new Location for save photo
+            $new_link = base_path('public/uploads/category_photo/').$new_name;
+            //make photo and save
+            Image::make($request->file('category_photo'))->resize(600,328)->save($new_link);
+        }
+
+
+
+
+
        catagory::insert([
             'catagory_name'=> $request->catagory_name,
+            'catagory_photo' => $new_name,
             'created_by'=> auth()->id(),
             'created_at'=> Carbon::now(),
             // 'created_at'=> Carbon::now()->addHours(6),//time add for bd time other wayz confi->app->set time for app on your contry
@@ -67,7 +84,7 @@ class CatagoryController extends Controller
         // return view('catagory.show');
         //    return Crypt::decrypt($catagory->id);
         // return $catagory;
-        return view('catagory.show',compact('catagory'));
+        return view('dashboard.catagory.show',compact('catagory'));
     }
 
     /**
@@ -78,7 +95,7 @@ class CatagoryController extends Controller
      */
     public function edit(catagory $catagory)
     {
-        return view('catagory.edit',compact('catagory'));
+        return view('dashboard.catagory.edit',compact('catagory'));
     }
 
     /**
@@ -129,7 +146,13 @@ class CatagoryController extends Controller
         catagory::onlyTrashed()->where('id',$id)->restore();
         return back()->with('restore_massege','Restore Successfully!');
     }
+
     public function forcedelete($id){
+        // return catagory::withTrashed()->find($id)->catagory_photo;
+        unlink(base_path('public/uploads/category_photo/').catagory::withTrashed()->find($id)->catagory_photo);
+    // unlink(base_path('public/uploads/category_photo/')).catagory::withTrashed()->find($id)->catagory_photo;
+
+
         catagory::onlyTrashed()->where('id', $id)->forceDelete();
         SubCategory::where('category_id', $id)->forcedelete();
         return back()->with('parmanent_delete_massege','Parmanent Delete Successfully!');
