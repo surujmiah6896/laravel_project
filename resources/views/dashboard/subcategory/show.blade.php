@@ -6,7 +6,7 @@ SubCalegory info
 
 @section('content')
 
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
          <div class="card">
@@ -15,7 +15,7 @@ SubCalegory info
                     <h4 class="card-title text-white">SubCategory</h4>
                 </div>
             </div>
-            
+
             <div class="card-body">
                   {{-- @if (session('delete_success'))
                     <div class=" alert alert-danger">
@@ -93,7 +93,7 @@ SubCalegory info
          </div>
         </div>
     </div>
-</div>
+
 
 @endsection
 

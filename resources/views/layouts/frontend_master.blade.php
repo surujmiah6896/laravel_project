@@ -11,6 +11,7 @@
     <title>Jesco - Fashoin eCommerce HTML Template</title>
     <meta name="description" content="Jesco - Fashoin eCommerce HTML Template" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Add site Favicon -->
     <link rel="shortcut icon" href="{{asset('frontend')}}/images/favicon/favicon.ico" type="image/png">
@@ -39,6 +40,8 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="Bwqy2c4n"></script>
 
     <!-- Top Bar -->
 
@@ -132,8 +135,13 @@
                     <!-- Header Action Start -->
                     <div class="col col-lg-auto align-self-center pl-0">
                         <div class="header-actions">
-                            <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal"
-                                data-bs-target="#loginActive">Sign In</a>
+                            @auth
+                                <a href="{{route('customer.dashboard')}}" class="header-action-btn login-btn"
+                                   >{{auth()->user()->name}}</a>
+                                @else
+                                <a href="{{route('customerlogin')}}" class="header-action-btn login-btn" data-bs-toggle="modal"
+                                    data-bs-target="#loginActive">Sign In</a>
+                            @endauth
                             <!-- Single Wedge Start -->
                             <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">
                                 <i class="pe-7s-search"></i>
@@ -147,7 +155,9 @@
                             <a href="#offcanvas-cart"
                                 class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="pe-7s-shopbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num" id="header_amount_num">
+                                    {{App\Models\Cart::where('user_id',auth()->id())->count()}}
+                                </span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu"
@@ -249,7 +259,7 @@
             </div>
             <div class="foot">
                 <div class="buttons mt-30px">
-                    <a href="cart.html" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    <a href="{{route('customer.cart')}}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
                     <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
                 </div>
             </div>
@@ -548,7 +558,7 @@
                         <div class="login-content">
                             <h2>Log in</h2>
                             <h3>Log in your account</h3>
-                           <form action="{{ route('login') }}" method="POST">
+                           <form action="{{ url('login') }}" method="POST">
                             @csrf
                                  <input type="email" class=" @error('email') is-invalid @enderror" name="email" placeholder="Enter your Email">
                                  <input type="password" class=" @error('password') is-invalid @enderror" name="password" placeholder="Enter your Password" >
@@ -564,7 +574,7 @@
                                 </div>
                                 <button type="submit">Log in</button>
                                 <div class="member-register">
-                                    <p> Not a member? <a href="{{route('register')}}"> Register now</a></p>
+                                    <p> Not a member? <a href="{{route('customerlogin')}}"> Register now</a></p>
                                 </div>
                             </form>
                         </div>
@@ -731,7 +741,10 @@
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <script src="{{asset('frontend')}}/js/vendor/vendor.min.js"></script>
     <script src="{{asset('frontend')}}/js/plugins/plugins.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- single product-->
+    @stack('fontendfooterjs')
     <!-- Main Js -->
     <script src="{{asset('frontend')}}/js/main.js"></script>
 </body>

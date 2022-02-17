@@ -6,7 +6,7 @@ Category Edit
 
 @section('content')
 
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -50,7 +50,7 @@ Category Edit
             </div>
         </div>
     </div>
-</div>
+
 
 @endsection
 

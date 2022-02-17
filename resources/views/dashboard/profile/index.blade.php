@@ -141,7 +141,7 @@ Profile
                                                                 <div class="form-row">
                                                                 <div class="form-group col-md-4">
                                                                     <label>Current Password</label>
-                                                                    <input type="password" name="current_password" placeholder="Enter current password" class="form-control">
+                                                                    <input type="password" name="current_password" value= "{{old('current_password')}}" placeholder="Enter current password" class="form-control">
                                                                     @error('current_password')
                                                                             <span class="text-danger">{{$message}}</span>
                                                                     @enderror
@@ -151,7 +151,7 @@ Profile
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label>Password</label>
-                                                                    <input type="password" name="password" placeholder="Enter Password" class="form-control">
+                                                                    <input type="password" name="password" value= "{{old('password')}}" placeholder="Enter Password" class="form-control">
                                                                     @error('password')
                                                                             <span class="text-danger">{{$message}}</span>
                                                                     @enderror
@@ -162,7 +162,7 @@ Profile
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label  abel>Confirm Password</label>
-                                                                    <input type="password" name="password_confirmation" placeholder="Enter Confirm Password" class="form-control">
+                                                                    <input type="password" name="password_confirmation" value= "{{old('password_confirmation')}}" placeholder="Enter Confirm Password" class="form-control">
                                                                     @error('photo_error')
                                                                             <span class="text-danger">{{$message}}</span>
                                                                     @enderror

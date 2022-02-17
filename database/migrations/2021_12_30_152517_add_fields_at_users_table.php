@@ -14,7 +14,7 @@ class AddFieldsAtUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('phone_number')->length(11)->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->string('profile_photo')->default('default_user_photo.jpg');
             $table->string('cover_photo')->default('default_cover_photo.jpg');

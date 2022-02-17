@@ -34,7 +34,7 @@ Add Category
                         <div class="form-group">
                                <label> Category Name</label>
                                <br>
-                               <input type="text" class=" @error('catagory_name') is-invalid @enderror form-control" name="catagory_name" placeholder="Enter Catagory Name">
+                               <input type="text" value= "{{old('catagory_name')}}" class=" @error('catagory_name') is-invalid @enderror form-control" name="catagory_name" placeholder="Enter Catagory Name">
                                @error('catagory_name')
                                <span class="text-danger">{{$message}}</span>
                                @enderror
@@ -43,7 +43,9 @@ Add Category
                         <div class="form-group">
                                     <label>Category Photo</label>
                                      <input type="file"  name="category_photo" class="form-control">
-
+                            @error('category_photo')
+                               <span class="text-danger">{{$message}}</span>
+                               @enderror
                         </div>
 
                         <br>

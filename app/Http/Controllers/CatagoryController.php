@@ -12,6 +12,11 @@ use Image;
 
 class CatagoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('checkrole');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +49,8 @@ class CatagoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'catagory_name'=>'required|unique:catagories'
+            'catagory_name'=>'required|unique:catagories',
+            'category_photo'=> 'required',
         ],[
             'catagory_name.required' =>'your custom comments'//custom error genaret
         ]);

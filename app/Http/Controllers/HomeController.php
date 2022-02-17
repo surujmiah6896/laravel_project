@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\catagory;
+use App\Models\Product;
+use App\Models\Slider;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +22,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkrole');
     }
 
     /**
@@ -30,7 +34,16 @@ class HomeController extends Controller
     {
         $total_category = catagory::count();
         $total_user = User::count();
-        return view('dashboard.home',compact('total_category','total_user'));
+        $total_subcategory = SubCategory::count();
+        $total_slider = Slider::count();
+        $total_product = Product::count();
+
+        return view('dashboard.home',compact(
+            'total_category',
+            'total_user',
+            'total_subcategory',
+            'total_slider',
+            'total_product',));
     }
     public function dashboard_master()
     {
