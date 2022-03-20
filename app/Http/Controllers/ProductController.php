@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\catagory;
+use App\Models\Country;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Product_Featured_Photos;
+use App\Models\Shipping;
 use App\Models\Size;
 use App\Models\SubCategory;
 use App\Models\Variation;
@@ -263,5 +265,13 @@ class ProductController extends Controller
         return back()->with('inventoryadd', 'Add Successfully!.');
     }
 
+    public function shipping(){
+
+    }
+
+    public function addshipping(Request $request){
+
+
+    }
 
 }

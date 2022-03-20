@@ -829,7 +829,12 @@
 						<i class="fa fa-th"></i>
 						<span class="nav-text">Variation Manager</span>
 						</a>
-                        
+                    </li>
+
+                    <li><a class="has-arrow ai-icon" href="{{route('coupon.index')}}" aria-expanded="false">
+						<i class="fa fa-percent"></i>
+						<span class="nav-text">Generate Coupon</span>
+						</a>
                     </li>
 
                      <li><a class="ai-icon" href="{{route('fronted_home')}}" target="_blank" aria-expanded="false">

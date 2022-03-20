@@ -228,33 +228,23 @@
             </div>
             <div class="body customScroll">
                 <ul class="minicart-product-list">
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{asset('frontend')}}/images/product-image/1.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Women's Elizabeth Coat</a>
-                            <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{asset('frontend')}}/images/product-image/2.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Long sleeve knee length</a>
-                            <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{asset('frontend')}}/images/product-image/3.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Cool Man Wearing Leather</a>
-                            <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
+                    @php
+                       $carts = App\Models\Cart::where('user_id',auth()->id())->get();
+                    @endphp
+                    @forelse ($carts as $cart)
+                        <li>
+                            <a href="single-product.html" class="image"><img src="{{asset('uploads/product_photo')}}/{{$cart->relationToproduct->product_thumbnail_photo}}"
+                                    alt="Cart product Image"></a>
+                            <div class="content">
+                                <a href="single-product.html" class="title">{{$cart->relationToproduct->product_name}}</a>
+                                <span class="quantity-price">   {{$cart->cart_amount}} x <span class="amount">৳{{$cart->relationToproduct->discounted_price}}</span></span>
+                                <a href="{{route('delete.cart',$cart->id)}}" class="remove">×</a>
+                            </div>
+                        </li>
+                    @empty
+                        <span class="alert alert-danger">No Data</span>
+                    @endforelse
+
                 </ul>
             </div>
             <div class="foot">

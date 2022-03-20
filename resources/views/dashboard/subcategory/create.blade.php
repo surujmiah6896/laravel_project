@@ -34,7 +34,7 @@ Add SubCategory
                         <div class="form-group">
                                <label> SubCategory Name</label>
                                <br>
-                            <select id="mySelect2" name="category_id" class=" @error('category_id') is-invalid @enderror form-control">
+                            <select id="mySelect2" name="category_id" class="js-example-placeholder-single js-states form-control">
                                 <option value="">-Select One Category-</option>
                                 @foreach ($allcategorys as $allcategory)
                                 <option value="{{$allcategory->id}}">{{$allcategory->catagory_name."-".$allcategory->id}}</option>
@@ -79,6 +79,10 @@ $('#mySelect2').select2({
   selectOnClose: true
 });
 
+// $(".js-example-placeholder-single").select2({
+//     placeholder: "Select a state",
+//     allowClear: true
+// });
  </script>
 @endsection
 

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Variation extends Model
+class Shipping extends Model
 {
     use HasFactory;
 
-    public function relationToinvantory()
+    public function relationTocountry()
     {
         //relation ono to one Inventory to Color table
-        return $this->belongsTo(Inventory::class);
+        return $this->hasOne(Country::class, 'id', 'country_id');
     }
 }

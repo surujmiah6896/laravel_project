@@ -301,7 +301,6 @@
                                 <ul>
 
                                     @forelse ($inventoreis as $inventory)
-
                                         <li id="{{$inventory->color_id}}" class="colordropdown"><a class=" {{$loop->first == 1 ? 'active-color':''}}" style="background-color: {{$inventory->relationTocolor->color_code}}" title="{{$inventory->relationTocolor->color_name}}" href="#"></a></li>
                                     @empty
                                           <li class="badge bg-danger">N/A Color Available</li>
@@ -611,7 +610,9 @@
         });
         $('#sizedropdown').change(function(){
            var size_id = $(this).val();
+
              $('#i_size_id').val(size_id);
+             $('#cart_amount').val('1');
             var color_id = $('#i_color_id').val();
             var product_id = "{{$products}}";
              //ajax start
@@ -709,11 +710,11 @@
                                 // alert();
                                 // $('#available_stock').html(data);
                                 $('#header_amount_num').html(data.cart_amount_status + parseInt($('#header_amount_num').html()));
-                                // Swal.fire(
-                                // 'Cart Add Successfully!'+data.cart_amount_status,
-                                // 'You clicked the button!',
-                                // 'success'
-                                // )
+                                Swal.fire(
+                                'Cart Add Successfully!' +data.cart_amount_status,
+                                'You clicked the button!',
+                                'success'
+                                )
                             },
                         });
                         //ajax end

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Shipping;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -90,7 +92,13 @@ class CustomerController extends Controller
     }
 
     public function customercart(){
-        $carts = Cart::where('user_id', auth()->id())->get();
-        return view('frontend.customer.cart',compact('carts'));
+        if(Auth::check()){
+            $carts = Cart::where('user_id', auth()->id())->get();
+            $shippings = Shipping::select('country_id')->groupBy('country_id')->get();
+            return view('frontend.customer.cart', compact('carts', 'shippings'));
+        }else{
+            return redirect('login');
+        }
     }
+
 }

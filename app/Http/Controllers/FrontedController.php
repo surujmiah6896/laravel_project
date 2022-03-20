@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\catagory;
 use App\Models\Inventory;
 use App\Models\Product;
@@ -15,7 +16,9 @@ class FrontedController extends Controller
         $sliders = Slider::all();
         $categories = catagory::all();
         $products = Product::latest()->get();
-        return view('frontend.index', compact('sliders', 'categories', 'products'));
+        Cart::where('user_id', auth()->id())->get();
+        $carts = Cart::where('user_id',auth()->id())->get();
+        return view('frontend.index', compact('sliders', 'categories', 'products', 'carts'));
     }
 
     // public function profile(){
@@ -51,6 +54,7 @@ class FrontedController extends Controller
         $related_products = Product::where('subcategory_id', $product->subcategory_id)->where('id', '!=', $product->id)->latest()->take(4)->get();
         $inventoreis = Inventory::where('product_id', $product->id)->select('color_id')->groupBy('color_id')->get();
         $totalinventory = Inventory::where('product_id', $product->id)->sum('quantity');
+
         return view('frontend.pruduct_details',compact('product', 'related_products', 'totalinventory', 'product_featured_photos', 'inventoreis'));
     }
 

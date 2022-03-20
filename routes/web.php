@@ -3,14 +3,18 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatagoryController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\VariationController;
+use App\Models\Shipping;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -50,6 +54,10 @@ Route::get('customer/cart',[CustomerController::class, 'customercart'])->name('c
 
 //cart
 Route::post('/insert/cart',[CartController::class, 'insertcart'])->name('insert.cart');
+Route::get('/delete/cart/{id}',[CartController::class, 'deletecart'])->name('delete.cart');
+Route::get('/deleteall/cart/{id}',[CartController::class, 'deleteallcart'])->name('delete.all.cart');
+Route::post('/city/list',[CartController::class, 'getcitylist'])->name('get.city.list');
+Route::post('/set/country/city',[CartController::class, 'setcountrycity'])->name('set.country.city');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -59,6 +67,10 @@ Route::resource('subcategory',SubCategoryController::class);
 Route::resource('slider', SliderController::class);
 Route::resource('product',ProductController::class);
 Route::resource('variation',VariationController::class);
+Route::resource('shipping',ShippingController::class);
+Route::resource('coupon',CouponController::class);
+Route::post('/check/coupon',[CouponController::class, 'checkcoupon'])->name('check.coupon');
+Route::get('/checkout',[CheckoutController::class, 'checkout'])->name('check.out');
 Route::post('/add/size',[VariationController::class, 'addsize'])->name('add.size');
 Route::get('/delete/size/{id}',[VariationController::class, 'deletesize'])->name('delete.size');
 
@@ -68,6 +80,10 @@ Route::get('/delete/featured/photos/{id}',[ProductController::class, 'deletefeat
 Route::post('/get/subcategories',[ProductController::class, 'getsubcategories'])->name('get.subcategories');
 Route::get('/add/inventory/{product_id}',[ProductController::class, 'addinventory'])->name('add.inventory');
 Route::post('/add/inventory/post{product_id}',[ProductController::class, 'addinventorypost'])->name('add.inventory.post');
+
+
+// Route::get('/shipping',[ProductController::class, 'shipping'])->name('shipping');
+// Route::post('/add/shipping',[ProductController::class, 'addshipping'])->name('add.shipping');
 
 
 Route::get('/restore/{id}',[CatagoryController::class,'restore'])->name('category.restore');
